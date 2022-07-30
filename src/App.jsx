@@ -1,7 +1,7 @@
 import Counter from "./components/Counter";
 
 function App() {
-  return <Counter />;
+  return <Counter bingo="bingoda" />;
 }
 
 export default App;
