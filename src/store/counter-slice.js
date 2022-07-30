@@ -28,7 +28,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const counterInitialState = { count: 0, showCount: true };
 
 const counterSlice = createSlice({
-  name: "counter",
+  name: "counterx",
   initialState: counterInitialState,
   reducers: {
     increment: (state) => {
