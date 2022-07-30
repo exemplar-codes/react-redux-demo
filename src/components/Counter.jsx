@@ -1,37 +1,33 @@
 import classes from "./Counter.module.css";
 import React from "react";
-import { connect } from "react-redux";
+
+import { useSelector, useDispatch } from "react-redux";
+import { counterActions } from "../store/counter-slice";
 
 const Counter = (props) => {
+  const count = useSelector((state) => state.count);
+  const showCount = useSelector((state) => state.showCount);
+
+  const dispatch = useDispatch();
+
+  const incrementHandler = () => dispatch(counterActions.increment());
+  const decrementHandler = () => dispatch(counterActions.decrement());
+  const increaseByHandler = () =>
+    dispatch(counterActions.increaseBy(props.amount));
+  const toggleCounterHandler = () => dispatch(counterActions.toggleCounter());
+
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      {props.showCount && <div className={classes.value}>{props.count}</div>}
+      {showCount && <div className={classes.value}>{count}</div>}
       <div>
-        <button onClick={props.decrementHandler}>Decrement</button>
-        <button onClick={props.incrementHandler}>Increment</button>
-        <button onClick={props.increaseByHandler}>
-          Increase by {props.amount}
-        </button>
+        <button onClick={decrementHandler}>Decrement</button>
+        <button onClick={incrementHandler}>Increment</button>
+        <button onClick={increaseByHandler}>Increase by {props.amount}</button>
       </div>
-      <button onClick={props.toggleCounterHandler}>Toggle Counter</button>
-      {props.bingo}
+      <button onClick={toggleCounterHandler}>Toggle Counter</button>
     </main>
   );
 };
 
-function mapStateToProps(state) {
-  return { count: state.count, showCount: state.showCount };
-}
-
-function mapDispatchToProps(dispatch, props) {
-  return {
-    incrementHandler: () => dispatch({ type: "INCREMENT" }),
-    decrementHandler: () => dispatch({ type: "DECREMENT" }),
-    increaseByHandler: () =>
-      dispatch({ type: "INCREASE_BY", amount: props.amount }),
-    toggleCounterHandler: () => dispatch({ type: "TOGGLE" }),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+export default Counter;
