@@ -10,6 +10,9 @@ const Counter = (props) => {
       <div>
         <button onClick={props.decrementHandler}>Decrement</button>
         <button onClick={props.incrementHandler}>Increment</button>
+        <button onClick={props.increaseByHandler}>
+          Increase by {props.amount}
+        </button>
       </div>
       <button onClick={props.toggleCounterHandler}>Toggle Counter</button>
       {props.bingo}
@@ -21,10 +24,12 @@ function mapStateToProps(state) {
   return { count: state.count, showCount: state.showCount };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, props) {
   return {
     incrementHandler: () => dispatch({ type: "INCREMENT" }),
     decrementHandler: () => dispatch({ type: "DECREMENT" }),
+    increaseByHandler: () =>
+      dispatch({ type: "INCREASE_BY", amount: props.amount }),
     toggleCounterHandler: () => dispatch({ type: "TOGGLE" }),
   };
 }
