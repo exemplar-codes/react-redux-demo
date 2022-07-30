@@ -1,33 +1,43 @@
 import classes from "./Header.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { authActions } from "../store/auth-slice";
+import React from "react";
 
-const Header = () => {
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+class Header extends React.Component {
+  logoutHandler() {
+    this.props.dispatch(authActions.logout());
+  }
 
-  const dispatch = useDispatch();
-  const logoutHandler = () => dispatch(authActions.logout());
+  render() {
+    return (
+      <header className={classes.header}>
+        <h1>Redux Auth</h1>
+        {this.props.isAuth && (
+          <nav>
+            <ul>
+              <li>
+                <a href="/">My Products</a>
+              </li>
+              <li>
+                <a href="/">My Sales</a>
+              </li>
+              <li>
+                <button onClick={this.logoutHandler.bind(this)}>Logout</button>
+              </li>
+            </ul>
+          </nav>
+        )}
+      </header>
+    );
+  }
+}
 
-  return (
-    <header className={classes.header}>
-      <h1>Redux Auth</h1>
-      {isAuth && (
-        <nav>
-          <ul>
-            <li>
-              <a href="/">My Products</a>
-            </li>
-            <li>
-              <a href="/">My Sales</a>
-            </li>
-            <li>
-              <button onClick={logoutHandler}>Logout</button>
-            </li>
-          </ul>
-        </nav>
-      )}
-    </header>
-  );
-};
+function mapStateToProps(state) {
+  return { isAuth: state.auth.isAuthenticated };
+}
 
-export default Header;
+function mapDispatchToProps(dispatch) {
+  return { dispatch: dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
