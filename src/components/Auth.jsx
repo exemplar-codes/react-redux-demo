@@ -1,10 +1,12 @@
 import classes from "./Auth.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth-slice";
 
 const Auth = () => {
   const dispatch = useDispatch();
   const loginHandler = () => dispatch(authActions.login());
+
+  const authCount = useSelector((state) => state.auth.count);
 
   return (
     <main className={classes.auth}>
@@ -19,6 +21,13 @@ const Auth = () => {
             <input type="password" id="password" />
           </div>
           <button onClick={loginHandler}>Login</button>
+          <button
+            onClick={() => dispatch(authActions.increment())}
+            style={{ margin: "1rem" }}
+          >
+            Increment Auth count
+          </button>
+          {authCount}
         </form>
       </section>
     </main>

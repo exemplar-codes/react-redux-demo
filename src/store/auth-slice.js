@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const authInitialState = { isAuthenticated: false };
+const authInitialState = { isAuthenticated: false, count: 0 };
 
 const authSlice = createSlice({
   name: "authx",
@@ -11,6 +11,9 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.isAuthenticated = false;
+    },
+    increment: (state) => {
+      state.count++;
     },
   },
 });
