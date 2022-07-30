@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { counterActions } from "../store/counter-slice";
 
 const Counter = (props) => {
-  const count = useSelector((state) => state.count);
-  const showCount = useSelector((state) => state.showCount);
+  const count = useSelector((state) => state.counter.count);
+  const showCount = useSelector((state) => state.counter.showCount);
 
   const dispatch = useDispatch();
 
