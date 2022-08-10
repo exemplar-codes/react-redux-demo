@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import AsyncComponent from "./components/AsyncComponent";
 import Auth from "./components/Auth";
 import Counter from "./components/Counter";
 import Header from "./components/Header";
@@ -9,6 +10,7 @@ function App() {
 
   return (
     <>
+      <AsyncComponent />
       <Header />
       {isAuth ? <UserProfile /> : <Auth />}
       <Counter bingo="bingoda" amount={5} />
